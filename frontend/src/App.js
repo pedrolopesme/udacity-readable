@@ -1,28 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import PostsContainer from './containers/PostsContainer';
+import { InitialDataLoader } from './actions/shared';
+import { connect } from 'react-redux';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.dispatch(InitialDataLoader());
+  }
   render() {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
+          <h1> My Blog </h1>
         </header>
+        <PostsContainer />
       </div>
     );
   }
 }
 
-export default App;
+function mapStateToProps({ Categories }) {
+  return {
+    loading: Categories === {}
+  }
+}
+
+export default connect(mapStateToProps)(App);

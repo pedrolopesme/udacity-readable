@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import PostComponent from '../components/PostComponent';
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 
 class PostsContainer extends Component {
-    render = () => {
+    render () {
         return <div>
+            <pre> { JSON.stringify(this.props) } </pre>
             Posts
-            { JSON.stringify(this.props) }
             <PostComponent />
             <PostComponent />
         </div>
     }
 }
 
-function mapStateToProps({ posts }){
+function mapStateToProps({Categories, Posts}){
     return {
-        posts: posts
+        posts: Posts,
+        categories: Categories
     }
 }
 
