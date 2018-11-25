@@ -29,3 +29,7 @@ These are the main external packages added to the project:
 | packages | description |
 |---|---|
 | **[React Router DOM](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom)** | **DOM bindings for React Router.** |
+| **[Redux](https://github.com/reduxjs/redux)** | **Redux is a predictable state container for JavaScript apps.** |
+| **[React Redux](https://github.com/reduxjs/react-redux)** | **Official React bindings for Redux.** |
+| **[Redux Thunk](https://github.com/reduxjs/redux-thunk)** | **Thunk middleware for Redux.** |
+
