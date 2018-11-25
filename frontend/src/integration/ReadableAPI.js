@@ -3,30 +3,41 @@ const API = "https://localhost:3001"
 // Generate a unique token for storing my posts.
 let token = localStorage.token
 if (!token)
-  token = localStorage.token = Math.random().toString(36).substr(-8)
+    token = localStorage.token = Math.random().toString(36).substr(-8)
 
 const headers = {
-  'Accept': 'application/json',
-  'Authorization': token
+    'Accept': 'application/json',
+    'Authorization': token
+}
+
+// get all data necessary to start application
+export function getInitialData() {
+    return Promise.all([
+        getCategories(),
+        getPost(),
+    ]).then(([categories, posts]) => ({
+        categories,
+        posts
+    }));
 }
 
 // gets all categories.
 export const getCategories = () => {
-    fetch(`${API}/categories`, {headers})
+    fetch(`${API}/categories`, { headers })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
 }
 
 // gets posts from a particular category. 
 export const getCategoryPosts = (category) => {
-    fetch(`${API}/${category}/posts`, {headers})
+    fetch(`${API}/${category}/posts`, { headers })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
 }
 
 // gets all posts.
 export const getPosts = () => {
-    fetch(`${API}/posts`, {headers})
+    fetch(`${API}/posts`, { headers })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
 }
@@ -35,11 +46,11 @@ export const getPosts = () => {
 export const createPost = (post) => {
     fetch(`${API}/posts`, {
         method: 'POST',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({post})
+        body: JSON.stringify({ post })
     })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
@@ -49,11 +60,11 @@ export const createPost = (post) => {
 export const updatePost = (id, post) => {
     fetch(`${API}/posts/${id}`, {
         method: 'PUT',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({post})
+        body: JSON.stringify({ post })
     })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
@@ -61,7 +72,7 @@ export const updatePost = (id, post) => {
 
 // gets a specific post.
 export const getPost = (id) => {
-    fetch(`${API}/posts/${id}`, {headers})
+    fetch(`${API}/posts/${id}`, { headers })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data).post : {})
 }
@@ -70,7 +81,7 @@ export const getPost = (id) => {
 export const upVotePost = (id) => {
     fetch(`${API}/posts/${id}`, {
         method: 'POST',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
@@ -84,7 +95,7 @@ export const upVotePost = (id) => {
 export const downVotePost = (id) => {
     fetch(`${API}/posts/${id}`, {
         method: 'POST',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
@@ -98,7 +109,7 @@ export const downVotePost = (id) => {
 export const deletePost = (id) => {
     fetch(`${API}/posts/${id}`, {
         method: 'DELETE',
-        headers : {
+        headers: {
             ...headers
         }
     })
@@ -108,7 +119,7 @@ export const deletePost = (id) => {
 
 // gets all comments from a specific post.
 export const getComments = (postId) => {
-    fetch(`${API}/posts/${postId}/comments`, {headers})
+    fetch(`${API}/posts/${postId}/comments`, { headers })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
 }
@@ -117,11 +128,11 @@ export const getComments = (postId) => {
 export const createComment = (comment) => {
     fetch(`${API}/comments`, {
         method: 'POST',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({comment})
+        body: JSON.stringify({ comment })
     })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
@@ -129,7 +140,7 @@ export const createComment = (comment) => {
 
 // gets a specific comment.
 export const getComment = (id) => {
-    fetch(`${API}/comments/${id}`, {headers})
+    fetch(`${API}/comments/${id}`, { headers })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data).post : {})
 }
@@ -138,7 +149,7 @@ export const getComment = (id) => {
 export const upVoteComment = (id) => {
     fetch(`${API}/comments/${id}`, {
         method: 'POST',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
@@ -152,7 +163,7 @@ export const upVoteComment = (id) => {
 export const downVoteCommment = (id) => {
     fetch(`${API}/comments/${id}`, {
         method: 'POST',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
@@ -166,11 +177,11 @@ export const downVoteCommment = (id) => {
 export const updateComment = (id, comment) => {
     fetch(`${API}/comments/${id}`, {
         method: 'PUT',
-        headers : {
+        headers: {
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({comment})
+        body: JSON.stringify({ comment })
     })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
@@ -180,7 +191,7 @@ export const updateComment = (id, comment) => {
 export const deleteComment = (id) => {
     fetch(`${API}/comments/${id}`, {
         method: 'DELETE',
-        headers : {
+        headers: {
             ...headers
         }
     })
