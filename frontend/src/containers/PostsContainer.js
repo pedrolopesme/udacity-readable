@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import PostComponent from '../components/PostComponent';
+import CategoryComponent from '../components/CategoryComponent';
 import { connect } from 'react-redux'
 
 class PostsContainer extends Component {
     render () {
         return <div>
-            <pre> { JSON.stringify(this.props) } </pre>
-            Posts
-            <PostComponent />
-            <PostComponent />
+            <h1> POSTS </h1>
+            { this.props.posts && Object.keys(this.props.posts).map( key =>
+                <PostComponent post={this.props.posts[key]}/> 
+            )}
+
+             <h1> CATEGORIES </h1>
+            { this.props.categories && Object.keys(this.props.categories).map( key =>
+                <CategoryComponent category={this.props.categories[key]}/> 
+            )}
         </div>
     }
 }
