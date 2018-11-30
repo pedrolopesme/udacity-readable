@@ -1,11 +1,13 @@
 import React, {Component} from 'react'
+import { Link } from 'react-router-dom'
 
 class PostComponent extends Component {
     render = () => {
         const post = this.props.post;
         return (<div>
-            <h3> {post.title} </h3>
-            {post.body}
+            <Link to={`/post/${post.id}`}>
+                <h3> {post.title} </h3>
+            </Link>
         </div>)
     }
 }
