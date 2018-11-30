@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import './App.css';
 import PostsContainer from './containers/PostsContainer';
+import PostContainer from './containers/PostContainer';
 import { InitialDataLoader } from './actions/shared';
 import { connect } from 'react-redux';
+import { Route } from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
@@ -14,7 +16,8 @@ class App extends Component {
         <header className="App-header">
           <h1> My Blog </h1>
         </header>
-        <PostsContainer />
+        <Route exact path="/" component={PostsContainer} />
+        <Route exact path="/post/:id" component={PostContainer} />
       </div>
     );
   }
