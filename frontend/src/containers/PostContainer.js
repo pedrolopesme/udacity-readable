@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import PostComponent from '../components/PostComponent';
 
 class PostContainer extends Component {
     // filterPost knows how to extract the right post
@@ -17,11 +18,8 @@ class PostContainer extends Component {
     }
 
     render() {
-        const post = this.filterPost(this.props);
         return <div>
-            {post && (
-                <h3> {post.title} </h3>
-            )}
+            <PostComponent post={this.filterPost(this.props)} />
         </div>
     }
 }
