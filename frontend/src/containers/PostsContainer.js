@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PostComponent from '../components/PostComponent';
+import PostPreviewComponent from '../components/PostPreviewComponent';
 import CategoryComponent from '../components/CategoryComponent';
 import { connect } from 'react-redux'
 
@@ -8,7 +8,7 @@ class PostsContainer extends Component {
         return <div>
             <h1> POSTS </h1>
             { this.props.posts && Object.keys(this.props.posts).map( key =>
-                <PostComponent key={key} post={this.props.posts[key]}/> 
+                <PostPreviewComponent key={key} post={this.props.posts[key]}/> 
             )}
 
              <h1> CATEGORIES </h1>

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-class PostComponent extends Component {
+class PostPreviewComponent extends Component {
     render = () => {
         const post = this.props.post;
         return (<div>
@@ -12,4 +12,4 @@ class PostComponent extends Component {
     }
 }
 
-export default PostComponent;
+export default PostPreviewComponent;
