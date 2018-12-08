@@ -3,9 +3,22 @@ import { connect } from 'react-redux'
 
 class PostContainer extends Component {
     render () {
+        const id = this.props.match.params.id;
+        const posts = this.props.posts;
+        let post;
+
+        if(id && posts) {
+            post = Object.keys(posts)
+                        .map( key => posts[key])
+                        .filter(p => p.id === id)
+                        .shift();
+        } 
+
         return <div>
-            <h1> POST </h1>
-            ----
+            {post && (
+                <h1> {post.title} </h1>
+            )}
+            
         </div>
     }
 }
