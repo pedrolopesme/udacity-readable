@@ -5,6 +5,7 @@ import PostContainer from './containers/PostContainer';
 import { InitialDataLoader } from './actions/shared';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom'
+import { BrowserRouter } from 'react-router-dom'
 
 class App extends Component {
   componentDidMount() {
@@ -12,13 +13,15 @@ class App extends Component {
   }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1> My Blog </h1>
-        </header>
-        <Route exact path="/" component={PostsContainer} />
-        <Route exact path="/post/:id" component={PostContainer} />
-      </div>
+      <BrowserRouter>
+        <div className="App">
+          <header className="App-header">
+            <h1> My Blog </h1>
+          </header>
+          <Route exact path="/post/:id" component={PostContainer} />
+          <Route exact path="/" component={PostsContainer} />
+        </div>
+      </BrowserRouter>
     );
   }
 }
