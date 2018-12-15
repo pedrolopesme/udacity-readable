@@ -5,6 +5,7 @@ class CommentComponent extends Component {
     render = () => {
         const comment = this.props.comment;
         const downVote = this.props.downVote;
+        const upVote = this.props.upVote;
         return <div>
             <p> {comment.body} </p>
             <div>
@@ -13,7 +14,7 @@ class CommentComponent extends Component {
                     score: {comment.voteScore}
                 </small>
                 <p>
-                    <button> Up Vote </button>
+                    <button onClick={() => upVote(comment)}> Up Vote </button>
                     <button onClick={() => downVote(comment)}> Down Vote </button>
                 </p>
                 <p>
