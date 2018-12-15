@@ -22,7 +22,6 @@ class AddCommentComponent extends Component {
         comment.id = UUIDV4();
         comment.timestamp = new Date().getTime();
         comment.parentId = this.postId;
-        console.log("DO SOMETHING WITH >>>> ", comment);
         this.clearForm();
     }
 

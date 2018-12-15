@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 class PostComponent extends Component {
     render = () => {
         const post = this.props.post;
+        const downVote = this.props.downVote;
         return <Fragment>
             {post && (
                 <div>
@@ -16,8 +17,8 @@ class PostComponent extends Component {
                         <p> <small> # Comments: {post.commentCount} </small> </p>
                         <p> <small> Score: {post.voteScore} </small> </p>
                         <p>
-                            <button> Up Vote </button> 
-                            <button> Down Vote </button>
+                            <button> Up Vote </button>
+                            <button onClick={() => downVote(post)}> Down Vote </button>
                         </p>
                         <p>
                             <Link to={`/`}> Edit </Link> |
