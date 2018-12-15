@@ -5,6 +5,10 @@ class PostComponent extends Component {
     render = () => {
         const post = this.props.post;
         const downVote = this.props.downVote;
+        const upVote = this.props.upVote;
+
+        console.log(this.props);
+
         return <Fragment>
             {post && (
                 <div>
@@ -17,7 +21,7 @@ class PostComponent extends Component {
                         <p> <small> # Comments: {post.commentCount} </small> </p>
                         <p> <small> Score: {post.voteScore} </small> </p>
                         <p>
-                            <button> Up Vote </button>
+                            <button onClick={() => upVote(post)}> Up Vote </button>
                             <button onClick={() => downVote(post)}> Down Vote </button>
                         </p>
                         <p>

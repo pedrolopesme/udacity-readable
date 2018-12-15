@@ -4,7 +4,7 @@ import AddCommentComponent from '../components/AddCommentComponent';
 import CommentComponent from '../components/CommentComponent';
 import PostComponent from '../components/PostComponent';
 import { handleLoadComments } from '../actions/comments';
-import { handleDownVotePost } from '../actions/posts';
+import { handleDownVotePost, handleUpVotePost } from '../actions/posts';
 
 class PostContainer extends Component {
     constructor(props) {
@@ -32,10 +32,15 @@ class PostContainer extends Component {
     downVotePost = (post) =>
         this.props.dispatch(handleDownVotePost(post))
 
+    upVotePost = (post) =>
+        this.props.dispatch(handleUpVotePost(post))
 
     render() {
         return <div>
-            <PostComponent post={this.filterPost(this.props)} downVote={this.downVotePost} />
+            <PostComponent
+                post={this.filterPost(this.props)}
+                downVote={this.downVotePost}
+                upVote={this.upVotePost} />
             <h3>Comments:</h3>
             <AddCommentComponent postId={this.id} />
             <hr />
