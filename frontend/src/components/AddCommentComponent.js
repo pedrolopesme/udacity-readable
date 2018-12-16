@@ -6,6 +6,7 @@ class AddCommentComponent extends Component {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.postId = props.postId;
+        this.addComment = props.addComment;
     }
 
     clearForm = () => {
@@ -14,6 +15,7 @@ class AddCommentComponent extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
+        // TODO extract to an util lib
         const comment = Array.from(new FormData(event.target).entries()).reduce((field, pair) => ({
             ...field,
             [pair[0]]: pair[1],
@@ -22,10 +24,12 @@ class AddCommentComponent extends Component {
         comment.id = UUIDV4();
         comment.timestamp = new Date().getTime();
         comment.parentId = this.postId;
+        this.addComment(comment);
         this.clearForm();
     }
 
     render = () => {
+        const addComment = this.props.addComment;
         return <div>
             <h4> Add Comment </h4>
             <form ref={(el) => this.commentForm = el} onSubmit={this.handleSubmit}>

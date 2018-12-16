@@ -1,4 +1,4 @@
-import { LOAD_COMMENTS, DOWNVOTE_COMMENT, UPVOTE_COMMENT } from '../actions/comments'
+import { LOAD_COMMENTS, DOWNVOTE_COMMENT, UPVOTE_COMMENT, ADD_COMMENT } from '../actions/comments'
 
 export default function Comments(state = {}, action) {
     switch (action.type) {
@@ -6,6 +6,11 @@ export default function Comments(state = {}, action) {
             return {
                 ...state,
                 ...action.comments
+            }
+        case ADD_COMMENT:
+            return {
+                ...state,
+                [Object.keys(state).length] : action.comment
             }
         case DOWNVOTE_COMMENT:
             Object.keys(state).forEach((key) => {
