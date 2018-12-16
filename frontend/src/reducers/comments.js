@@ -4,7 +4,6 @@ export default function Comments(state = {}, action) {
     switch (action.type) {
         case LOAD_COMMENTS:
             return {
-                ...state,
                 ...action.comments
             }
         case ADD_COMMENT:
