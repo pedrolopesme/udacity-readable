@@ -1,5 +1,5 @@
-import {assignToProperElement} from '../utils/arrays.js';
-import { LOAD_POSTS, DOWNVOTE_POST, UP_POST } from '../actions/posts'
+import { assignToProperElement } from '../utils/arrays.js';
+import { LOAD_POSTS, DOWNVOTE_POST, UP_POST, ADD_POST, EDIT_POST, DELETE_POST } from '../actions/posts'
 
 export default function Posts(state = {}, action) {
     switch (action.type) {
@@ -7,6 +7,20 @@ export default function Posts(state = {}, action) {
             return {
                 ...state,
                 ...action.posts
+            }
+        case ADD_POST:
+            return {
+                ...state,
+                [Object.keys(state).length]: action.post
+            }
+        case EDIT_POST:
+            assignToProperElement(state, action.post.id, action.post);
+            return {
+                ...state
+            }
+        case DELETE_POST:
+            return {
+                ...removeElement(state, action.post.id),
             }
         case DOWNVOTE_POST:
             assignToProperElement(state, action.post.id, action.post);
