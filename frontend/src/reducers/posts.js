@@ -1,3 +1,4 @@
+import {assignToProperElement} from '../utils/arrays.js';
 import { LOAD_POSTS, DOWNVOTE_POST, UP_POST } from '../actions/posts'
 
 export default function Posts(state = {}, action) {
@@ -8,20 +9,12 @@ export default function Posts(state = {}, action) {
                 ...action.posts
             }
         case DOWNVOTE_POST:
-            Object.keys(state).forEach((key) => {
-                if (state[key].id === action.post.id) {
-                    state[key] = action.post
-                }
-            })
+            assignToProperElement(state, action.post.id, action.post);
             return {
                 ...state
             }
         case UP_POST:
-            Object.keys(state).forEach((key) => {
-                if (state[key].id === action.post.id) {
-                    state[key] = action.post
-                }
-            })
+            assignToProperElement(state, action.post.id, action.post);
             return {
                 ...state
             }
