@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PostPreviewComponent from '../components/PostPreviewComponent';
 import CategoryComponent from '../components/CategoryComponent';
 import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 class PostsContainer extends Component {
     render () {
@@ -15,6 +16,8 @@ class PostsContainer extends Component {
             {this.props.categories && Object.keys(this.props.categories).map( key =>
                 <CategoryComponent key={key} category={this.props.categories[key]}/> 
             )}
+
+            <Link to={`/posts/new`}> Add Post </Link> 
         </div>
     }
 }

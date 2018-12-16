@@ -4,7 +4,6 @@ import UUIDV4 from '../utils/uuid';
 class CommentFormComponent extends Component {
     constructor(props) {
         super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
         this.submitCallback = props.submitCallback;
         this.comment = props.comment;
 
@@ -39,7 +38,7 @@ class CommentFormComponent extends Component {
 
     render = () => {
         return <div>
-            <form ref={(el) => this.commentForm = el} onSubmit={this.handleSubmit}>
+            <form onSubmit={this.handleSubmit}>
                 <p>
                     <label htmlFor="author">Author</label> <br />
                     <input type="text" name="author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />

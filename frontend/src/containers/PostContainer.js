@@ -57,6 +57,7 @@ class PostContainer extends Component {
                 post={this.filterPost(this.props)}
                 downVote={this.downVotePost}
                 upVote={this.upVotePost} />
+
             <h3> Add Comment </h3>
             <CommentFormComponent
                 postId={this.id}
