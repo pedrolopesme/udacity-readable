@@ -6,6 +6,7 @@ class CommentComponent extends Component {
         const comment = this.props.comment;
         const downVote = this.props.downVote;
         const upVote = this.props.upVote;
+        const deleteComment = this.props.deleteComment;
         return <div>
             <p> {comment.body} </p>
             <div>
@@ -18,8 +19,8 @@ class CommentComponent extends Component {
                     <button onClick={() => downVote(comment)}> Down Vote </button>
                 </p>
                 <p>
-                    <Link to={`/`}> Edit </Link> |
-                    <Link to={`/`}> Delete </Link>
+                    <Link to={`/`}> Edit </Link>
+                    <button onClick={() => window.confirm("Do you really want to delete this?") ? deleteComment(comment) : undefined }> Delete </button>
                 </p>
             </div>
         </div>

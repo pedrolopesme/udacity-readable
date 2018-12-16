@@ -1,6 +1,7 @@
 import * as API from '../integration/ReadableAPI';
 
-export const ADD_COMMENT = 'ADD_COMMENTS';
+export const ADD_COMMENT = 'ADD_COMMENT';
+export const DELETE_COMMENT = 'DELETE_COMMENT';
 export const LOAD_COMMENTS = 'LOAD_COMMENTS';
 export const DOWNVOTE_COMMENT = 'DOWNVOTE_COMMENTS';
 export const UPVOTE_COMMENT = 'UPVOTE_COMMENTS';
@@ -59,5 +60,19 @@ export function handleAddComment(comment) {
     return (dispatch) => {
         return API.createComment(comment)
             .then((comment) => dispatch(addComment(comment)))
+    }
+}
+
+function deleteComment(comment) {
+    return {
+        type: DELETE_COMMENT,
+        comment
+    }
+}
+
+export function handleDeleteComment(comment) {
+    return (dispatch) => {
+        return API.deleteComment(comment.id)
+            .then((comment) => dispatch(deleteComment(comment)))
     }
 }
