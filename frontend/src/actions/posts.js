@@ -79,7 +79,7 @@ function deletePost(post) {
 
 export function handleDeletePost(post) {
     return (dispatch) => {
-        return API.deletePost(comment.id)
+        return API.deletePost(post.id)
             .then((post) => dispatch(deletePost(post)))
     }
 }

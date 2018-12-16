@@ -1,4 +1,4 @@
-import { assignToProperElement } from '../utils/arrays.js';
+import { assignToProperElement, removeElement } from '../utils/arrays.js';
 import { LOAD_POSTS, DOWNVOTE_POST, UP_POST, ADD_POST, EDIT_POST, DELETE_POST } from '../actions/posts'
 
 export default function Posts(state = {}, action) {
