@@ -1,5 +1,5 @@
 import { assignToProperElement, removeElement } from '../utils/arrays.js';
-import { LOAD_COMMENTS, DOWNVOTE_COMMENT, UPVOTE_COMMENT, ADD_COMMENT, DELETE_COMMENT } from '../actions/comments'
+import { LOAD_COMMENTS, DOWNVOTE_COMMENT, UPVOTE_COMMENT, ADD_COMMENT, DELETE_COMMENT, EDIT_COMMENT } from '../actions/comments'
 
 export default function Comments(state = {}, action) {
     switch (action.type) {
@@ -11,6 +11,11 @@ export default function Comments(state = {}, action) {
             return {
                 ...state,
                 [Object.keys(state).length]: action.comment
+            }
+        case EDIT_COMMENT:
+            assignToProperElement(state, action.comment.id, action.comment);
+            return {
+                ...state
             }
         case DELETE_COMMENT:
             return {

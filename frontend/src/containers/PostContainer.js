@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import AddCommentComponent from '../components/AddCommentComponent';
+import CommentFormComponent from '../components/CommentFormComponent';
 import CommentComponent from '../components/CommentComponent';
 import PostComponent from '../components/PostComponent';
 import { handleLoadComments } from '../actions/comments';
 import { handleDownVotePost, handleUpVotePost } from '../actions/posts';
-import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment } from '../actions/comments';
+import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment, handleEditComment } from '../actions/comments';
 
 class PostContainer extends Component {
     constructor(props) {
@@ -45,6 +45,9 @@ class PostContainer extends Component {
     addComment = (comment) =>
         this.props.dispatch(handleAddComment(comment))
 
+    editComment = (comment) =>
+        this.props.dispatch(handleEditComment(comment))
+
     deleteComment = (comment) =>
         this.props.dispatch(handleDeleteComment(comment))
 
@@ -54,15 +57,18 @@ class PostContainer extends Component {
                 post={this.filterPost(this.props)}
                 downVote={this.downVotePost}
                 upVote={this.upVotePost} />
-            <h3>Comments:</h3>
-            <AddCommentComponent
+            <h3> Add Comment </h3>
+            <CommentFormComponent
                 postId={this.id}
-                addComment={this.addComment} />
+                submitCallback={this.addComment} />
             <hr />
+
+            <h3>Comments:</h3>
             {this.props.comments && Object.keys(this.props.comments).map(key =>
                 <CommentComponent
                     key={key}
                     comment={this.props.comments[key]}
+                    submitCallback={this.editComment}
                     downVote={this.downVoteComment}
                     upVote={this.upVoteComment}
                     deleteComment={this.deleteComment} />

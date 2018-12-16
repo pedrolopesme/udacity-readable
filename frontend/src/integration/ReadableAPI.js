@@ -169,7 +169,7 @@ export const updateComment = (id, comment) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ comment })
+        body: JSON.stringify(comment)
     })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
