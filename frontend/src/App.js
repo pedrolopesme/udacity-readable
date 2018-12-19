@@ -8,19 +8,29 @@ import { connect } from 'react-redux';
 import { Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
+import { handleAddPost, handleEditPost } from './actions/posts';
+import { browserHistory } from 'react-router';
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(InitialDataLoader());
   }
+
+  addPost = (post) =>
+    this.props.dispatch(handleAddPost(post))
+
+  editPost = (post) =>
+    this.props.dispatch(handleEditPost(post))
+
   render() {
     return (
       <BrowserRouter>
         <div className="App">
           <header className="App-header">
-          <Link to={`/`}> <h1> My Blog </h1> </Link> 
+            <Link to={`/`}> <h1> My Blog </h1> </Link>
           </header>
-          <Route exact path="/posts/new" component={PostFormComponent} />
+          <Route exact path="/posts/new" render={() =>
+            <PostFormComponent categories={this.props.categories} submitCallback={this.addPost} />} />
           <Route exact path="/post/:id" component={PostContainer} />
           <Route exact path="/" component={PostsContainer} />
         </div>
@@ -31,7 +41,8 @@ class App extends Component {
 
 function mapStateToProps({ Categories }) {
   return {
-    loading: Categories === {}
+    loading: Categories === {},
+    categories: Categories
   }
 }
 
