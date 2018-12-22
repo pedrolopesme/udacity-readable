@@ -18,3 +18,14 @@ export function removeElement(arr, index) {
     })
     return newCollection;
 }
+
+export function flattenObjectArray(obj) {
+    let arr = [];
+    if (obj) {
+        let keys = Object.keys(obj) || [];
+        keys.forEach((key) => {
+            arr.push(obj[key]);
+        });
+    }
+    return arr;
+}

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PostPreviewComponent from '../components/PostPreviewComponent';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
+import { flattenObjectArray } from '../utils/arrays';
 
 class CategoryContainer extends Component {
     constructor(props) {
@@ -19,13 +20,20 @@ class CategoryContainer extends Component {
         return []
     }
 
+
     render = () => {
         const posts = this.filterPosts(this.props);
+        const category = flattenObjectArray(this.props.categories).filter(c => c.path === this.category).shift();
+
         return <div>
+            {category && (
+                <h2> {category.name} </h2>
+            )}
+
             {posts && posts.map(post =>
                 <PostPreviewComponent key={post.id} post={post} />
             )}
-            
+
             {posts.length === 0 && (
                 <div> No posts yet :( </div>
             )}
@@ -34,9 +42,10 @@ class CategoryContainer extends Component {
     }
 }
 
-function mapStateToProps({ Posts }) {
+function mapStateToProps({ Posts, Categories }) {
     return {
         posts: Posts,
+        categories: Categories
     }
 }
 
