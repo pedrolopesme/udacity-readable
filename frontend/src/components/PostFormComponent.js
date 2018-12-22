@@ -7,18 +7,21 @@ class PostFormComponent extends Component {
     constructor(props) {
         super(props);
         this.submitCallback = props.submitCallback;
+        this.state = this.buildState();
+    }
 
-        const id = props.match.params.id ? props.match.params.id : UUIDV4();
-        this.state = {
+    buildState = () => {
+        const id = this.props.match.params.id ? this.props.match.params.id : UUIDV4();
+        return {
             id,
             navigateToPost: false,
-            ...this.buildPost(props)
+            ...this.buildPost(this.props)
         }
     }
 
     buildPost = (props) => {
         let propsPost;
-        if (props.posts) {
+        if (this.state && props.posts) {
             propsPost = Object.keys(props.posts)
                 .map(key => props.posts[key])
                 .filter(p => p.id === this.state.id)
@@ -31,6 +34,10 @@ class PostFormComponent extends Component {
             body: propsPost ? propsPost.body : '',
             category: propsPost ? propsPost.category : ''
         };
+    }
+
+    componentDidMount = () => {
+        this.setState(this.buildState());
     }
 
     componentWillReceiveProps = (nextProps) => {
@@ -67,6 +74,11 @@ class PostFormComponent extends Component {
     }
 
     render = () => {
+        if(!this.state) {
+            return ""
+        }
+
+
         const { categories } = this.props;
         const { navigateToPost } = this.state;
 
