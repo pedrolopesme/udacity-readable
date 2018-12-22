@@ -2,6 +2,15 @@ import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
 
 class PostComponent extends Component {
+    constructor(props) {
+        super(props);
+        this.deletePost = props.deletePost;
+    }
+
+    handleDeletePost = (e, post) => {
+        window.confirm("Do you really want to delete this?") ? this.deletePost(post) : e.preventDefault();
+    }
+
     render = () => {
         const post = this.props.post;
         const downVote = this.props.downVote;
@@ -23,7 +32,7 @@ class PostComponent extends Component {
                         </p>
                         <p>
                             <Link to={`/posts/${post.id}/edit`}> Edit </Link> |
-                            <Link to={`/`}> Delete </Link>
+                            <Link to={`/`} onClick={(e) => this.handleDeletePost(e, post)}> Delete </Link>
                         </p>
                     </div>
                 </div>

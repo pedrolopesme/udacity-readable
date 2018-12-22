@@ -4,7 +4,7 @@ import CommentFormComponent from '../components/CommentFormComponent';
 import CommentComponent from '../components/CommentComponent';
 import PostComponent from '../components/PostComponent';
 import { handleLoadComments } from '../actions/comments';
-import { handleDownVotePost, handleUpVotePost } from '../actions/posts';
+import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
 import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment, handleEditComment } from '../actions/comments';
 
 class PostContainer extends Component {
@@ -51,12 +51,16 @@ class PostContainer extends Component {
     deleteComment = (comment) =>
         this.props.dispatch(handleDeleteComment(comment))
 
+    deletePost = (post) =>
+        this.props.dispatch(handleDeletePost(post))
+
     render() {
         return <div>
             <PostComponent
                 post={this.filterPost(this.props)}
                 downVote={this.downVotePost}
-                upVote={this.upVotePost} />
+                upVote={this.upVotePost}
+                deletePost={this.deletePost} />
 
             <h3> Add Comment </h3>
             <CommentFormComponent

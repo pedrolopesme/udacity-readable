@@ -29,9 +29,14 @@ class App extends Component {
             <Link to={`/`}> <h1> My Blog </h1> </Link>
           </header>
           <Route exact path="/posts/new" render={() =>
-            <PostFormComponent categories={this.props.categories} submitCallback={this.addPost} />} />
+            <PostFormComponent
+              categories={this.props.categories}
+              submitCallback={this.addPost} />} />
           <Route exact path="/posts/:id/edit" render={() =>
-            <PostFormComponent categories={this.props.categories} submitCallback={this.editPost} posts={this.props.posts} />} />
+            <PostFormComponent
+              categories={this.props.categories}
+              submitCallback={this.editPost}
+              posts={this.props.posts} />} />
           <Route exact path="/post/:id" component={PostContainer} />
           <Route exact path="/" component={PostsContainer} />
         </div>
