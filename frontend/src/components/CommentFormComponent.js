@@ -16,7 +16,7 @@ class CommentFormComponent extends Component {
     }
 
     clearForm = () => {
-        this.setState({ author: '', body: '' });
+        this.setState({ id: UUIDV4(), author: '', body: '' });
     }
 
     handleChange(event) {
