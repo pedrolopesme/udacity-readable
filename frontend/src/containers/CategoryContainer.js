@@ -20,9 +20,14 @@ class CategoryContainer extends Component {
     }
 
     render = () => {
+        const posts = this.filterPosts(this.props);
         return <div>
-            {this.filterPosts(this.props).map(post =>
+            {posts && posts.map(post =>
                 <PostPreviewComponent key={post.id} post={post} />
+            )}
+            
+            {posts.length === 0 && (
+                <div> No posts yet :( </div>
             )}
             <Link to={`/posts/new`}> Add Post </Link>
         </div>
