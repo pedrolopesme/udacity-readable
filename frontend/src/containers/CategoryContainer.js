@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PostPreviewComponent from '../components/PostPreviewComponent';
 import { Link } from 'react-router-dom';
 import { flattenObjectArray } from '../utils/arrays';
+import CategoryComponent from '../components/CategoryComponent';
 
 class CategoryContainer extends Component {
     constructor(props) {
@@ -37,6 +38,12 @@ class CategoryContainer extends Component {
             {posts.length === 0 && (
                 <div> No posts yet :( </div>
             )}
+
+            <h1> CATEGORIES </h1>
+            {flattenObjectArray(this.props.categories).map(category =>
+                <CategoryComponent key={category.path} category={category} />
+            )}
+
             <Link to={`/posts/new`}> Add Post </Link>
         </div>
     }

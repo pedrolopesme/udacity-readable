@@ -3,26 +3,26 @@ import PostPreviewComponent from '../components/PostPreviewComponent';
 import CategoryComponent from '../components/CategoryComponent';
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { flattenObjectArray } from '../utils/arrays';
 
 class PostsContainer extends Component {
-    render () {
+    render() {
         return <div>
             <h1> POSTS </h1>
-            {this.props.posts && Object.keys(this.props.posts).map( key =>
-                <PostPreviewComponent key={key} post={this.props.posts[key]}/> 
+            {flattenObjectArray(this.props.posts).map(post =>
+                <PostPreviewComponent key={post.io} post={post} />
             )}
 
             <h1> CATEGORIES </h1>
-            {this.props.categories && Object.keys(this.props.categories).map( key =>
-                <CategoryComponent key={key} category={this.props.categories[key]}/> 
+            {flattenObjectArray(this.props.categories).map(category =>
+                <CategoryComponent key={category.path} category={category} />
             )}
-
-            <Link to={`/posts/new`}> Add Post </Link> 
+            <Link to={`/posts/new`}> Add Post </Link>
         </div>
     }
 }
 
-function mapStateToProps({Categories, Posts}){
+function mapStateToProps({ Categories, Posts }) {
     return {
         posts: Posts,
         categories: Categories
