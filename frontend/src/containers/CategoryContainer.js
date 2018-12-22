@@ -6,25 +6,21 @@ import { flattenObjectArray } from '../utils/arrays';
 import CategoryComponent from '../components/CategoryComponent';
 
 class CategoryContainer extends Component {
-    constructor(props) {
-        super(props);
-        this.category = props.match.params.category;
-    }
-
-    filterPosts = (props) => {
+    filterPosts = (category, props) => {
         const posts = props.posts;
-        if (this.category && posts) {
+        if (category && posts) {
             return Object.keys(posts)
                 .map(key => posts[key])
-                .filter(p => p.category === this.category);
+                .filter(p => p.category === category);
         }
         return []
     }
 
 
     render = () => {
-        const posts = this.filterPosts(this.props);
-        const category = flattenObjectArray(this.props.categories).filter(c => c.path === this.category).shift();
+        const categoryPath = this.props.match.params.category;
+        const posts = this.filterPosts(categoryPath, this.props);
+        const category = flattenObjectArray(this.props.categories).filter(c => c.path === categoryPath).shift();
 
         return <div>
             {category && (
