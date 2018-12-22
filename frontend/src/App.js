@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import PostsContainer from './containers/PostsContainer';
 import PostContainer from './containers/PostContainer';
+import CategoryContainer from './containers/CategoryContainer';
 import PostFormComponent from './components/PostFormComponent';
 import { InitialDataLoader } from './actions/shared';
 import { connect } from 'react-redux';
@@ -38,6 +39,7 @@ class App extends Component {
               submitCallback={this.editPost}
               posts={this.props.posts} />} />
           <Route exact path="/post/:id" component={PostContainer} />
+          <Route exact path="/:category" component={CategoryContainer} />
           <Route exact path="/" component={PostsContainer} />
         </div>
       </BrowserRouter>

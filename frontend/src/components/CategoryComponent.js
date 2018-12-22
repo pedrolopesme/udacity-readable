@@ -1,10 +1,11 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 
 class CategoryComponent extends Component {
     render = () => {
         const category = this.props.category;
         return (<div>
-            <h5> {category.name} </h5>
+            <Link to={`/${category.path}`}> {category.name} </Link>
         </div>)
     }
 }
