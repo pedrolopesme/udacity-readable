@@ -9,7 +9,6 @@ import { Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import { handleAddPost, handleEditPost } from './actions/posts';
-import { browserHistory } from 'react-router';
 
 class App extends Component {
   componentDidMount() {
@@ -31,6 +30,8 @@ class App extends Component {
           </header>
           <Route exact path="/posts/new" render={() =>
             <PostFormComponent categories={this.props.categories} submitCallback={this.addPost} />} />
+          <Route exact path="/posts/:id/edit" render={() =>
+            <PostFormComponent categories={this.props.categories} submitCallback={this.editPost} posts={this.props.posts} />} />
           <Route exact path="/post/:id" component={PostContainer} />
           <Route exact path="/" component={PostsContainer} />
         </div>
@@ -39,10 +40,11 @@ class App extends Component {
   }
 }
 
-function mapStateToProps({ Categories }) {
+function mapStateToProps({ Categories, Posts }) {
   return {
     loading: Categories === {},
-    categories: Categories
+    categories: Categories,
+    posts: Posts
   }
 }
 

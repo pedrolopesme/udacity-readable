@@ -6,9 +6,6 @@ class PostComponent extends Component {
         const post = this.props.post;
         const downVote = this.props.downVote;
         const upVote = this.props.upVote;
-
-        console.log(this.props);
-
         return <Fragment>
             {post && (
                 <div>
@@ -25,7 +22,7 @@ class PostComponent extends Component {
                             <button onClick={() => downVote(post)}> Down Vote </button>
                         </p>
                         <p>
-                            <Link to={`/`}> Edit </Link> |
+                            <Link to={`/posts/${post.id}/edit`}> Edit </Link> |
                             <Link to={`/`}> Delete </Link>
                         </p>
                     </div>

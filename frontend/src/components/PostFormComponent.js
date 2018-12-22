@@ -1,21 +1,40 @@
 import React, { Component } from 'react';
 import UUIDV4 from '../utils/uuid';
 import { Redirect } from 'react-router'
+import { withRouter } from 'react-router-dom'
 
 class PostFormComponent extends Component {
     constructor(props) {
         super(props);
         this.submitCallback = props.submitCallback;
-        this.post = props.post;
-
         this.state = {
-            id: this.post ? this.post.id : UUIDV4(),
-            title: this.post ? this.post.title : '',
-            author: this.post ? this.post.author : '',
-            body: this.post ? this.post.body : '',
-            category: this.post ? this.post.category : '',
-            navigateToPost: false
+            navigateToPost: false,
+            ...this.buildPost(props)
         }
+    }
+
+    buildPost = (props) => {
+        const id = props.match.params.id;
+        let propsPost;
+
+        if (id && props.posts) {
+            propsPost = Object.keys(props.posts)
+                .map(key => props.posts[key])
+                .filter(p => p.id === id)
+                .shift();
+        }
+
+        return {
+            id: propsPost ? propsPost.id : UUIDV4(),
+            title: propsPost ? propsPost.title : '',
+            author: propsPost ? propsPost.author : '',
+            body: propsPost ? propsPost.body : '',
+            category: propsPost ? propsPost.category : ''
+        };
+    }
+
+    componentWillReceiveProps = (nextProps) => {
+        this.setState({ ...this.buildPost(nextProps) });
     }
 
     handleChange(event) {
@@ -24,24 +43,21 @@ class PostFormComponent extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        let post = {}
-        post.id = this.state.id;
-        post.author = this.state.author;
-        post.title = this.state.title;
-        post.body = this.state.body;
-        post.category = this.state.category;
-        post.timestamp = this.post ? this.post.timestamp : new Date().getTime();
 
-        if (this.validate(post)) {
-            this.submitCallback(post)
-                .then(() => this.setState({ navigateToPost: true }));
+        if (this.validate()) {
+            const timestamp = this.state.timestamp || new Date().getTime();
+            this.submitCallback({
+                ...this.state,
+                timestamp: timestamp
+            }).then(() => this.setState({ navigateToPost: true }));
         } else {
-            alert('Please, fill all the fields.');
+            alert('Please fill all the fields.');
         }
     }
 
-    validate = (post) => {
-        if (post.author !== '' &&
+    validate = () => {
+        const post = this.state;
+        if (post.title !== '' &&
             post.author !== '' &&
             post.body !== '' &&
             post.category !== '') {
@@ -75,7 +91,7 @@ class PostFormComponent extends Component {
                 <p>
                     <label htmlFor="category">Category</label> <br />
                     <select name="category" id="category" value={this.state.category} onChange={this.handleChange.bind(this)}>
-                        <option> Select One </option>
+                        <option value=""> Select One </option>
                         {categories && Object.keys(categories).map(key =>
                             <option key={key} value={categories[key].path}> {categories[key].name} </option>
                         )}
@@ -89,4 +105,4 @@ class PostFormComponent extends Component {
     }
 }
 
-export default PostFormComponent;
+export default withRouter(PostFormComponent);

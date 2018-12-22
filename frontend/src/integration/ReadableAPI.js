@@ -60,7 +60,7 @@ export const updatePost = (id, post) =>
             ...headers,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ post })
+        body: JSON.stringify(post)
     })
         .then(res => res.text())
         .then(data => data ? JSON.parse(data) : {})
