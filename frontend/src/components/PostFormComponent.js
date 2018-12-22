@@ -7,25 +7,25 @@ class PostFormComponent extends Component {
     constructor(props) {
         super(props);
         this.submitCallback = props.submitCallback;
+
+        const id = props.match.params.id ? props.match.params.id : UUIDV4();
         this.state = {
+            id,
             navigateToPost: false,
             ...this.buildPost(props)
         }
     }
 
     buildPost = (props) => {
-        const id = props.match.params.id;
         let propsPost;
-
-        if (id && props.posts) {
+        if (props.posts) {
             propsPost = Object.keys(props.posts)
                 .map(key => props.posts[key])
-                .filter(p => p.id === id)
+                .filter(p => p.id === this.state.id)
                 .shift();
         }
 
         return {
-            id: propsPost ? propsPost.id : UUIDV4(),
             title: propsPost ? propsPost.title : '',
             author: propsPost ? propsPost.author : '',
             body: propsPost ? propsPost.body : '',
