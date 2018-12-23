@@ -4,7 +4,7 @@ import CommentFormComponent from '../components/CommentFormComponent';
 import CommentComponent from '../components/CommentComponent';
 import PostComponent from '../components/PostComponent';
 import { handleLoadComments } from '../actions/comments';
-import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
+import { handleDownVotePost, handleUpVotePost, handleDeletePost, incrementComments, decrementComments } from '../actions/posts';
 import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment, handleEditComment } from '../actions/comments';
 
 class PostContainer extends Component {
@@ -42,14 +42,16 @@ class PostContainer extends Component {
     upVoteComment = (comment) =>
         this.props.dispatch(handleUpVoteComment(comment))
 
-    addComment = (comment) =>
-        this.props.dispatch(handleAddComment(comment))
+    addComment = (comment, post) => 
+        this.props.dispatch(handleAddComment(comment)) &&
+        this.props.dispatch(incrementComments(post)) 
 
     editComment = (comment) =>
         this.props.dispatch(handleEditComment(comment))
 
-    deleteComment = (comment) =>
-        this.props.dispatch(handleDeleteComment(comment))
+    deleteComment = (comment, post) =>
+        this.props.dispatch(handleDeleteComment(comment)) &&
+        this.props.dispatch(decrementComments(post)) 
 
     deletePost = (post) =>
         this.props.dispatch(handleDeletePost(post))
@@ -65,14 +67,14 @@ class PostContainer extends Component {
 
         return <div>
             <PostComponent
-                post={this.filterPost(this.props)}
+                post={post}
                 downVote={this.downVotePost}
                 upVote={this.upVotePost}
                 deletePost={this.deletePost} />
 
             <h3> Add Comment </h3>
             <CommentFormComponent
-                postId={this.id}
+                post={post}
                 submitCallback={this.addComment} />
             <hr />
 
@@ -80,6 +82,7 @@ class PostContainer extends Component {
             {this.props.comments && Object.keys(this.props.comments).map(key =>
                 <CommentComponent
                     key={key}
+                    post={post}
                     comment={this.props.comments[key]}
                     submitCallback={this.editComment}
                     downVote={this.downVoteComment}

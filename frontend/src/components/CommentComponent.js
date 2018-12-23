@@ -6,6 +6,7 @@ const MODE = { READ: 'read', EDIT: 'edit' };
 class CommentComponent extends Component {
     constructor(props) {
         super(props);
+        this.post = props.post;
         this.state = { 'mode': MODE.READ };
     }
 
@@ -36,7 +37,7 @@ class CommentComponent extends Component {
                             </p>
                             <p>
                                 <button onClick={() => this.toggleMode()}> Edit </button>
-                                <button onClick={() => window.confirm("Do you really want to delete this?") ? deleteComment(comment) : undefined}> Delete </button>
+                                <button onClick={() => window.confirm("Do you really want to delete this?") ? deleteComment(comment, this.post) : undefined}> Delete </button>
                             </p>
                         </div>
                     </div>

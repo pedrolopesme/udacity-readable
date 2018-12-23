@@ -6,12 +6,12 @@ class CommentFormComponent extends Component {
         super(props);
         this.submitCallback = props.submitCallback;
         this.comment = props.comment;
-
+        this.post = props.post;
         this.state = {
             id: this.comment ? this.comment.id : UUIDV4(),
             author: this.comment ? this.comment.author : '',
             body: this.comment ? this.comment.body : '',
-            parentId: this.comment ? this.comment.parentId : props.postId,
+            parentId: this.comment ? this.comment.parentId : props.post.id,
         }
     }
 
@@ -32,7 +32,7 @@ class CommentFormComponent extends Component {
         comment.body = this.state.body;
         comment.parentId = this.state.parentId;
         comment.timestamp = this.comment ? this.comment.timestamp : new Date().getTime();
-        this.submitCallback(comment);
+        this.submitCallback(comment, this.post);
         this.clearForm();
     }
 
