@@ -5,14 +5,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { flattenObjectArray } from '../utils/arrays';
 import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
-
-const SORTING = {
-    DATE: "timestamp", SCORE: "voteScore", COMMENTS: "commentCount"
-}
-
-const SORTING_DIRECTION = {
-    ASC: "ASC", DESC: "DESC"
-}
+import { SortingFilterComponent, SORTING, SORTING_DIRECTION } from '../components/SortingFilterComponent';
 
 class PostsContainer extends Component {
     constructor(props) {
@@ -20,11 +13,7 @@ class PostsContainer extends Component {
         this.state = { sort: SORTING.DATE, direction: SORTING_DIRECTION.DESC }
     }
 
-    sortPosts = (order) => {
-        let direction = SORTING_DIRECTION.DESC;
-        if (this.state.sort === order) {
-            direction = this.state.direction === SORTING_DIRECTION.ASC ? SORTING_DIRECTION.DESC : SORTING_DIRECTION.ASC;
-        }
+    setSorting = (order, direction) => {
         this.setState({ sort: order, direction: direction })
     }
 
@@ -51,18 +40,10 @@ class PostsContainer extends Component {
 
     render() {
         return <div>
-            <div>
-                Sort by :
-                <button onClick={() => this.sortPosts(SORTING.DATE)}>
-                    date {this.state.sort === SORTING.DATE && (<span> (*) </span>)}
-                </button> |
-                <button onClick={() => this.sortPosts(SORTING.SCORE)}>
-                    score {this.state.sort === SORTING.SCORE && (<span> (*) </span>)}
-                </button> |
-                <button onClick={() => this.sortPosts(SORTING.COMMENTS)}>
-                    comments {this.state.sort === SORTING.COMMENTS && (<span> (*) </span>)}
-                </button>
-            </div>
+            <SortingFilterComponent
+                sort={this.state.sort}
+                direction={this.state.direction}
+                changeSorting={this.setSorting} />
 
             <h1> POSTS </h1>
             {this.getPosts(this.props.posts).map(post =>

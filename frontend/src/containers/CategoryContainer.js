@@ -5,8 +5,30 @@ import { Link } from 'react-router-dom';
 import { flattenObjectArray } from '../utils/arrays';
 import CategoryComponent from '../components/CategoryComponent';
 import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
+import { SortingFilterComponent, SORTING, SORTING_DIRECTION } from '../components/SortingFilterComponent';
 
 class CategoryContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { sort: SORTING.DATE, direction: SORTING_DIRECTION.DESC }
+    }
+
+    setSorting = (order, direction) => {
+        this.setState({ sort: order, direction: direction })
+    }
+
+    getPosts = (posts) => {
+        return flattenObjectArray(posts).sort((a, b) => {
+            const field = this.state.sort;
+
+            if (this.state.direction === SORTING_DIRECTION.ASC) {
+                return a[field] - b[field];
+            }
+
+            return b[field] - a[field];
+        })
+    }
+
     downVotePost = (post) =>
         this.props.dispatch(handleDownVotePost(post))
 
@@ -36,13 +58,22 @@ class CategoryContainer extends Component {
                 <h2> {category.name} </h2>
             )}
 
-            {posts && posts.map(post =>
-                <PostPreviewComponent
-                    key={post.id}
-                    post={post}
-                    downVote={this.downVotePost}
-                    upVote={this.upVotePost}
-                    deletePost={this.deletePost} />
+            {posts.length > 0 && (
+                <div>
+                    <SortingFilterComponent
+                        sort={this.state.sort}
+                        direction={this.state.direction}
+                        changeSorting={this.setSorting} />
+
+                    {this.getPosts(posts).map(post =>
+                        <PostPreviewComponent
+                            key={post.id}
+                            post={post}
+                            downVote={this.downVotePost}
+                            upVote={this.upVotePost}
+                            deletePost={this.deletePost} />
+                    )}
+                </div>
             )}
 
             {posts.length === 0 && (
