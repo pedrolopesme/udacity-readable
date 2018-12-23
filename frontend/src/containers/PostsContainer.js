@@ -10,7 +10,7 @@ class PostsContainer extends Component {
         return <div>
             <h1> POSTS </h1>
             {flattenObjectArray(this.props.posts).map(post =>
-                <PostPreviewComponent key={post.io} post={post} />
+                <PostPreviewComponent key={post.id} post={post} />
             )}
 
             <h1> CATEGORIES </h1>
