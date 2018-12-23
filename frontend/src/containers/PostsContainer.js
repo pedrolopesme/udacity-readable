@@ -6,7 +6,39 @@ import { Link } from 'react-router-dom'
 import { flattenObjectArray } from '../utils/arrays';
 import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
 
+const SORTING = {
+    DATE: "timestamp", SCORE: "voteScore", COMMENTS: "commentCount"
+}
+
+const SORTING_DIRECTION = {
+    ASC: "ASC", DESC: "DESC"
+}
+
 class PostsContainer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = { sort: SORTING.DATE, direction: SORTING_DIRECTION.DESC }
+    }
+
+    sortPosts = (order) => {
+        let direction = SORTING_DIRECTION.DESC;
+        if (this.state.sort === order) {
+            direction = this.state.direction === SORTING_DIRECTION.ASC ? SORTING_DIRECTION.DESC : SORTING_DIRECTION.ASC;
+        }
+        this.setState({ sort: order, direction: direction })
+    }
+
+    getPosts = (posts) => {
+        return flattenObjectArray(posts).sort((a, b) => {
+            const field = this.state.sort;
+
+            if (this.state.direction === SORTING_DIRECTION.ASC) {
+                return a[field] - b[field];
+            }
+
+            return b[field] - a[field];
+        })
+    }
 
     downVotePost = (post) =>
         this.props.dispatch(handleDownVotePost(post))
@@ -19,8 +51,21 @@ class PostsContainer extends Component {
 
     render() {
         return <div>
+            <div>
+                Sort by :
+                <button onClick={() => this.sortPosts(SORTING.DATE)}>
+                    date {this.state.sort === SORTING.DATE && (<span> (*) </span>)}
+                </button> |
+                <button onClick={() => this.sortPosts(SORTING.SCORE)}>
+                    score {this.state.sort === SORTING.SCORE && (<span> (*) </span>)}
+                </button> |
+                <button onClick={() => this.sortPosts(SORTING.COMMENTS)}>
+                    comments {this.state.sort === SORTING.COMMENTS && (<span> (*) </span>)}
+                </button>
+            </div>
+
             <h1> POSTS </h1>
-            {flattenObjectArray(this.props.posts).map(post =>
+            {this.getPosts(this.props.posts).map(post =>
                 <PostPreviewComponent
                     key={post.id}
                     post={post}
