@@ -55,6 +55,14 @@ class PostContainer extends Component {
         this.props.dispatch(handleDeletePost(post))
 
     render() {
+        const post = this.filterPost(this.props);
+
+        if (!post) {
+            return <div>
+                Sorry, post doesn't exist.
+            </div>
+        }
+
         return <div>
             <PostComponent
                 post={this.filterPost(this.props)}
