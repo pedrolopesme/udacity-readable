@@ -4,8 +4,18 @@ import PostPreviewComponent from '../components/PostPreviewComponent';
 import { Link } from 'react-router-dom';
 import { flattenObjectArray } from '../utils/arrays';
 import CategoryComponent from '../components/CategoryComponent';
+import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
 
 class CategoryContainer extends Component {
+    downVotePost = (post) =>
+        this.props.dispatch(handleDownVotePost(post))
+
+    upVotePost = (post) =>
+        this.props.dispatch(handleUpVotePost(post))
+
+    deletePost = (post) =>
+        this.props.dispatch(handleDeletePost(post))
+
     filterPosts = (category, props) => {
         const posts = props.posts;
         if (category && posts) {
@@ -15,7 +25,6 @@ class CategoryContainer extends Component {
         }
         return []
     }
-
 
     render = () => {
         const categoryPath = this.props.match.params.category;
@@ -28,7 +37,12 @@ class CategoryContainer extends Component {
             )}
 
             {posts && posts.map(post =>
-                <PostPreviewComponent key={post.id} post={post} />
+                <PostPreviewComponent
+                    key={post.id}
+                    post={post}
+                    downVote={this.downVotePost}
+                    upVote={this.upVotePost}
+                    deletePost={this.deletePost} />
             )}
 
             {posts.length === 0 && (
