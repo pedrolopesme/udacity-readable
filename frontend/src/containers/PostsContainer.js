@@ -1,11 +1,17 @@
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import AddIcon from '@material-ui/icons/Add';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { handleDeletePost, handleDownVotePost, handleUpVotePost } from '../actions/posts';
 import PostPreviewComponent from '../components/PostPreviewComponent';
-import CategoryComponent from '../components/CategoryComponent';
-import { connect } from 'react-redux'
-import { Link } from 'react-router-dom'
+import { SORTING, SortingFilterComponent, SORTING_DIRECTION } from '../components/SortingFilterComponent';
 import { flattenObjectArray } from '../utils/arrays';
-import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
-import { SortingFilterComponent, SORTING, SORTING_DIRECTION } from '../components/SortingFilterComponent';
+
 
 class PostsContainer extends Component {
     constructor(props) {
@@ -39,27 +45,70 @@ class PostsContainer extends Component {
         this.props.dispatch(handleDeletePost(post))
 
     render() {
+        const styles = theme => ({
+            container: {
+                display: 'grid',
+                gridTemplateColumns: 'repeat(12, 1fr)',
+                gridGap: `${theme.spacing.unit * 3}px`,
+            },
+            paper: {
+                padding: theme.spacing.unit,
+                textAlign: 'center',
+                color: theme.palette.text.secondary,
+                whiteSpace: 'nowrap',
+                marginBottom: theme.spacing.unit,
+            },
+            divider: {
+                margin: `${theme.spacing.unit * 2}px 0`,
+            },
+            fab: {
+                margin: theme.spacing.unit,
+            },
+        });
+
+        let divStyle = {
+            maxWidth: '800px',
+            margin: '0 auto',
+            position: 'relative'
+        };
+
         return <div>
-            <SortingFilterComponent
-                sort={this.state.sort}
-                direction={this.state.direction}
-                changeSorting={this.setSorting} />
+            <div style={divStyle}>
+                <Grid container spacing={24}>
+                    <Grid item align="left" xs={9}>
+                        <SortingFilterComponent
+                            sort={this.state.sort}
+                            direction={this.state.direction}
+                            changeSorting={this.setSorting} />
 
-            <h1> POSTS </h1>
-            {this.getPosts(this.props.posts).map(post =>
-                <PostPreviewComponent
-                    key={post.id}
-                    post={post}
-                    downVote={this.downVotePost}
-                    upVote={this.upVotePost}
-                    deletePost={this.deletePost} />
-            )}
+                        <h2> POSTS </h2>
+                        {this.getPosts(this.props.posts).map(post =>
+                            <PostPreviewComponent
+                                key={post.id}
+                                post={post}
+                                downVote={this.downVotePost}
+                                upVote={this.upVotePost}
+                                deletePost={this.deletePost} />
+                        )}
+                    </Grid>
 
-            <h1> CATEGORIES </h1>
-            {flattenObjectArray(this.props.categories).map(category =>
-                <CategoryComponent key={category.path} category={category} />
-            )}
-            <Link to={`/posts/new`}> Add Post </Link>
+                    <Grid item xs={3} align="left">
+                        <h5> CATEGORIES </h5>
+                        <List component="nav">
+                            {flattenObjectArray(this.props.categories).map(category =>
+                                <Link to={`/${category.path}`} key={category.path}>
+                                    <ListItem button >
+                                        <ListItemText > {category.name} </ListItemText>
+                                    </ListItem>
+                                </Link>
+                            )}
+                        </List>
+                    </Grid>
+                </Grid>
+            </div>
+            <Fab color="primary" aria-label="Add" align="right" className="fab" containerElement={<Link to={`/posts/new`} />}>
+                <AddIcon />
+            </Fab>
         </div>
     }
 }

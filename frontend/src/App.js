@@ -8,8 +8,8 @@ import { InitialDataLoader } from './actions/shared';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom'
 import { BrowserRouter } from 'react-router-dom'
-import { Link } from 'react-router-dom'
 import { handleAddPost, handleEditPost } from './actions/posts';
+import AppBar from './components/AppBar';
 
 class App extends Component {
   componentDidMount() {
@@ -26,9 +26,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <header className="App-header">
-            <Link to={`/`}> <h1> My Blog </h1> </Link>
-          </header>
+          <AppBar />
           <Route exact path="/posts/new" render={() =>
             <PostFormComponent
               categories={this.props.categories}

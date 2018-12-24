@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PostPreviewComponent from '../components/PostPreviewComponent';
 import { Link } from 'react-router-dom';
+import { handleDeletePost, handleDownVotePost, handleUpVotePost } from '../actions/posts';
+import PostPreviewComponent from '../components/PostPreviewComponent';
+import { SORTING, SortingFilterComponent, SORTING_DIRECTION } from '../components/SortingFilterComponent';
 import { flattenObjectArray } from '../utils/arrays';
-import CategoryComponent from '../components/CategoryComponent';
-import { handleDownVotePost, handleUpVotePost, handleDeletePost } from '../actions/posts';
-import { SortingFilterComponent, SORTING, SORTING_DIRECTION } from '../components/SortingFilterComponent';
+import Fab from '@material-ui/core/Fab';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
+import AddIcon from '@material-ui/icons/Add';
 
 class CategoryContainer extends Component {
     constructor(props) {
@@ -81,9 +86,15 @@ class CategoryContainer extends Component {
             )}
 
             <h1> CATEGORIES </h1>
-            {flattenObjectArray(this.props.categories).map(category =>
-                <CategoryComponent key={category.path} category={category} />
-            )}
+            <List component="nav">
+                {flattenObjectArray(this.props.categories).map(category =>
+                    <Link to={`/${category.path}`} key={category.path}>
+                        <ListItem button >
+                            <ListItemText > {category.name} </ListItemText>
+                        </ListItem>
+                    </Link>
+                )}
+            </List>
 
             <Link to={`/posts/new`}> Add Post </Link>
         </div>
