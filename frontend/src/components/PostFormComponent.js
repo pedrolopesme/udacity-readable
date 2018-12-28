@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import UUIDV4 from '../utils/uuid';
 import { Redirect } from 'react-router'
 import { withRouter } from 'react-router-dom'
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
 
 class PostFormComponent extends Component {
     constructor(props) {
@@ -74,10 +80,19 @@ class PostFormComponent extends Component {
     }
 
     render = () => {
-        if(!this.state) {
+        if (!this.state) {
             return ""
         }
 
+        let divStyle = {
+            maxWidth: '800px',
+            margin: '0 auto',
+            position: 'relative'
+        };
+
+        const textField = {
+            width: 200,
+        };
 
         const { categories } = this.props;
         const { navigateToPost } = this.state;
@@ -86,31 +101,34 @@ class PostFormComponent extends Component {
             return <Redirect to={`/post/${this.state.id}`} />
         }
 
-        return <div>
+        return <div style={divStyle}>
             <form onSubmit={this.handleSubmit}>
+                <h2 align="left"> Post Form </h2>
                 <p>
-                    <label htmlFor="title">Title</label> <br />
-                    <input type="text" name="title" id="title" value={this.state.title} onChange={this.handleChange.bind(this)} />
+                    <TextField className={textField} fullWidth type="text" label="Title" name="title" id="title" value={this.state.title} onChange={this.handleChange.bind(this)} />
                 </p>
                 <p>
-                    <label htmlFor="author">Author</label> <br />
-                    <input type="text" name="author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
+                    <TextField className={textField} fullWidth label="Author" type="text" name="author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
                 </p>
                 <p>
-                    <label htmlFor="body">Body</label> <br />
-                    <textarea id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
+                    <TextField className={textField} multiline fullWidth label="Body" id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
                 </p>
                 <p>
-                    <label htmlFor="category">Category</label> <br />
-                    <select name="category" id="category" value={this.state.category} onChange={this.handleChange.bind(this)}>
-                        <option value=""> Select One </option>
-                        {categories && Object.keys(categories).map(key =>
-                            <option key={key} value={categories[key].path}> {categories[key].name} </option>
-                        )}
-                    </select>
+                    <FormControl fullWidth> 
+                        <InputLabel htmlFor="category">Category</InputLabel>
+                        <Select label="category" name="category" id="category" value={this.state.category} onChange={this.handleChange.bind(this)}>
+                            <option value="">  </option>
+                            <MenuItem value="">
+                                <em>Select One</em>
+                            </MenuItem>
+                            {categories && Object.keys(categories).map(key =>
+                                <MenuItem key={key} value={categories[key].path}> {categories[key].name} </MenuItem>
+                            )}
+                        </Select>
+                    </FormControl>
                 </p>
                 <p>
-                    <button>Send!</button>
+                    <Button variant="contained" type="submit" color="primary">Send!</Button>
                 </p>
             </form>
         </div>
