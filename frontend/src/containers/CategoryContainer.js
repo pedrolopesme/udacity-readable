@@ -109,7 +109,7 @@ class CategoryContainer extends Component {
                     </Grid>
                 </Grid>
             </div>
-            <Fab color="primary" aria-label="Add" align="right" className="fab" containerElement={<Link to={`/posts/new`} />}>
+            <Fab color="primary" aria-label="Add" align="right" className="fab" to={`/posts/new`} component={props => <Link {...props}/>}>
                 <AddIcon />
             </Fab>
         </div>
