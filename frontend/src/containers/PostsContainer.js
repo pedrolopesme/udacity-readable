@@ -45,26 +45,6 @@ class PostsContainer extends Component {
         this.props.dispatch(handleDeletePost(post))
 
     render() {
-        const styles = theme => ({
-            container: {
-                display: 'grid',
-                gridTemplateColumns: 'repeat(12, 1fr)',
-                gridGap: `${theme.spacing.unit * 3}px`,
-            },
-            paper: {
-                padding: theme.spacing.unit,
-                textAlign: 'center',
-                color: theme.palette.text.secondary,
-                whiteSpace: 'nowrap',
-                marginBottom: theme.spacing.unit,
-            },
-            divider: {
-                margin: `${theme.spacing.unit * 2}px 0`,
-            },
-            fab: {
-                margin: theme.spacing.unit,
-            },
-        });
 
         let divStyle = {
             maxWidth: '800px',
@@ -93,7 +73,7 @@ class PostsContainer extends Component {
                     </Grid>
 
                     <Grid item xs={3} align="left">
-                        <h5> CATEGORIES </h5>
+                        <h2> CATEGORIES </h2>
                         <List component="nav">
                             {flattenObjectArray(this.props.categories).map(category =>
                                 <Link to={`/${category.path}`} key={category.path}>

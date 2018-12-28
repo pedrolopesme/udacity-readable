@@ -58,45 +58,60 @@ class CategoryContainer extends Component {
         const posts = this.filterPosts(categoryPath, this.props);
         const category = flattenObjectArray(this.props.categories).filter(c => c.path === categoryPath).shift();
 
+        let divStyle = {
+            maxWidth: '800px',
+            margin: '0 auto',
+            position: 'relative'
+        };
+
         return <div>
-            {category && (
-                <h2> {category.name} </h2>
-            )}
+            <div style={divStyle}>
+                <Grid container spacing={24}>
+                    <Grid item align="left" xs={9}>
+                        {category && (
+                            <h2> Category: {category.name} </h2>
+                        )}
 
-            {posts.length > 0 && (
-                <div>
-                    <SortingFilterComponent
-                        sort={this.state.sort}
-                        direction={this.state.direction}
-                        changeSorting={this.setSorting} />
+                        {posts.length > 0 && (
+                            <div>
+                                <SortingFilterComponent
+                                    sort={this.state.sort}
+                                    direction={this.state.direction}
+                                    changeSorting={this.setSorting} />
 
-                    {this.getPosts(posts).map(post =>
-                        <PostPreviewComponent
-                            key={post.id}
-                            post={post}
-                            downVote={this.downVotePost}
-                            upVote={this.upVotePost}
-                            deletePost={this.deletePost} />
-                    )}
-                </div>
-            )}
+                                {this.getPosts(posts).map(post =>
+                                    <PostPreviewComponent
+                                        key={post.id}
+                                        post={post}
+                                        downVote={this.downVotePost}
+                                        upVote={this.upVotePost}
+                                        deletePost={this.deletePost} />
+                                )}
+                            </div>
+                        )}
 
-            {posts.length === 0 && (
-                <div> No posts yet :( </div>
-            )}
+                        {posts.length === 0 && (
+                            <div> No posts yet :( </div>
+                        )}
+                    </Grid>
 
-            <h1> CATEGORIES </h1>
-            <List component="nav">
-                {flattenObjectArray(this.props.categories).map(category =>
-                    <Link to={`/${category.path}`} key={category.path}>
-                        <ListItem button >
-                            <ListItemText > {category.name} </ListItemText>
-                        </ListItem>
-                    </Link>
-                )}
-            </List>
-
-            <Link to={`/posts/new`}> Add Post </Link>
+                    <Grid item xs={3} align="left">
+                        <h2> CATEGORIES </h2>
+                        <List component="nav">
+                            {flattenObjectArray(this.props.categories).map(category =>
+                                <Link to={`/${category.path}`} key={category.path}>
+                                    <ListItem button >
+                                        <ListItemText > {category.name} </ListItemText>
+                                    </ListItem>
+                                </Link>
+                            )}
+                        </List>
+                    </Grid>
+                </Grid>
+            </div>
+            <Fab color="primary" aria-label="Add" align="right" className="fab" containerElement={<Link to={`/posts/new`} />}>
+                <AddIcon />
+            </Fab>
         </div>
     }
 }
