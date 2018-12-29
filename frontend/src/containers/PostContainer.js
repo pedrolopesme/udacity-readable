@@ -7,6 +7,7 @@ import { handleLoadComments } from '../actions/comments';
 import { handleDownVotePost, handleUpVotePost, handleDeletePost, incrementComments, decrementComments } from '../actions/posts';
 import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment, handleEditComment } from '../actions/comments';
 import Divider from '@material-ui/core/Divider';
+import RecordVoiceOver from '@material-ui/icons/RecordVoiceOver'
 
 
 class PostContainer extends Component {
@@ -74,14 +75,16 @@ class PostContainer extends Component {
                 upVote={this.upVotePost}
                 deletePost={this.deletePost} />
 
-            <Divider light className="divider"/>
+            <Divider light className="divider" />
 
             <CommentFormComponent
                 post={post}
                 submitCallback={this.addComment} />
 
-            <h3> Comments </h3>
-
+            <h3>
+                <RecordVoiceOver className="icon" />
+                {post.commentCount} Comment(s)
+            </h3>
             {this.props.comments && Object.keys(this.props.comments).map(key =>
                 <CommentComponent
                     key={key}

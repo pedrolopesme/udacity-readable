@@ -25,6 +25,13 @@ h3 {
   font-size: 2em;
 }
 
+h3 .icon {
+  font-size: 1.2em;
+  position: relative;
+  top: 10px;
+  margin-right: 5px;
+}
+
 h4 {
   color: rgb(92, 92, 92);
   font-family: 'Playfair Display', serif;
@@ -43,20 +50,20 @@ h4 {
   width: 80%;
   margin: 0 auto;
   max-width: 900px;
-  
+  min-width: 400px;
 }
 
-div.meta {
+.post div.meta {
   background-color: #ebe9e9;
   padding: 10px 20px;
   margin: 25px 0 0 0;
 }
 
-div.meta span {
+.post div.meta span {
   font-weight: 600;
 }
 
-div.meta div {
+.post div.meta div {
   display: inline-block;
   font-size: .9em;
 }
@@ -69,19 +76,19 @@ div.right {
   float: right;
 }
 
-div.meta .icon {
+.post div.meta .icon {
   font-size: 1em;
   position: relative;
   top: 2px;
 }
 
-div.meta .a {
+.post div.meta .a {
   border: none;
   background: transparent;
   cursor: pointer;
 }
 
-div.meta .thumbs {
+.post div.meta .thumbs {
   margin: 0 0 0 8px;
 }
 
@@ -105,5 +112,49 @@ div.meta .thumbs {
   margin-top: 70px;
 }
 
+.comment {
+  width: 500px;
+  margin: 0 auto;
+}
 
+.comment .faceIcon {
+  font-size: 3em;
+  float: left;
+  margin: 0 25px 25px 0;
+}
 
+.comment .body {
+  float: right;
+  font-size: .8em;
+  text-align: left;
+  max-width: 320px;
+}
+
+.comment .body span {
+  font-weight: 600;
+}
+
+.comment .thumbs {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  margin: 0;
+}
+
+.comment .thumbs  * {
+  font-size: 1.2em;
+}
+
+.comment .right p {
+  margin: 15px 0 0px 0;
+  font-size: .9em;
+  color: red;
+}
+
+.comment .right p .icon {
+  margin: 0;
+  font-size: 1em;
+  color: red;
+  position: relative;
+  top: 2px;
+}

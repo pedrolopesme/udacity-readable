@@ -1,9 +1,8 @@
-import React, { Component, Fragment } from 'react'
-import { Link } from 'react-router-dom'
-import FavoriteBorder from '@material-ui/icons/FavoriteBorder'
-import ThumbUp from '@material-ui/icons/ThumbUp'
-import ThumbDown from '@material-ui/icons/ThumbDown'
-import RecordVoiceOver from '@material-ui/icons/RecordVoiceOver'
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import ThumbUp from '@material-ui/icons/ThumbUp';
+import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 
 class PostComponent extends Component {
     constructor(props) {
@@ -21,7 +20,7 @@ class PostComponent extends Component {
         const upVote = this.props.upVote;
         return <Fragment>
             {post && (
-                <div>
+                <div className="post">
                     <h1> {post.title} </h1>
                     <div class="meta">
                         <div className="left">
@@ -31,7 +30,6 @@ class PostComponent extends Component {
                             </div>
                         </div>
                         <div className="right">
-                            <div> <RecordVoiceOver className="icon" /> <span>{post.commentCount}</span> &nbsp; </div> 
                             <div> <FavoriteBorder className="icon" /> <span> {post.voteScore} </span> </div>
                             <div>
                                 <button className="a" onClick={() => upVote(post)} href=""> <ThumbUp className="icon thumbs" /> like it </button>
