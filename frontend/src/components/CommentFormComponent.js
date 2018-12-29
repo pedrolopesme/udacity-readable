@@ -1,3 +1,5 @@
+import Button from '@material-ui/core/Button';
+import TextField from '@material-ui/core/TextField';
 import React, { Component } from 'react';
 import UUIDV4 from '../utils/uuid';
 
@@ -37,21 +39,27 @@ class CommentFormComponent extends Component {
     }
 
     render = () => {
-        return <div>
-            <form onSubmit={this.handleSubmit}>
+        const textField = {
+            width: 200,
+        };
+
+        return  <form onSubmit={this.handleSubmit} className="commentForm">
+                <div className="left">
+                    <h4> Share your thoughts ! </h4>
+                </div>
+                <div className="right">
                 <p>
-                    <label htmlFor="author">Author</label> <br />
-                    <input type="text" name="author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
+                    <TextField className={textField} name="author" label="Author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
                 </p>
                 <p>
-                    <label htmlFor="body">Body</label> <br />
-                    <textarea id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
+                    <TextField className={textField} multiline label="Comment" id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
                 </p>
-                <p>
-                    <button>Send!</button>
+                <p align="right">
+                    <Button variant="contained"  size="small" type="submit" >Send!</Button>
                 </p>
+                </div>
+                <span className="clearfix"></span>
             </form>
-        </div>
     }
 }
 
