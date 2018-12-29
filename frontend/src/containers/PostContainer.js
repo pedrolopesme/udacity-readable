@@ -6,6 +6,8 @@ import PostComponent from '../components/PostComponent';
 import { handleLoadComments } from '../actions/comments';
 import { handleDownVotePost, handleUpVotePost, handleDeletePost, incrementComments, decrementComments } from '../actions/posts';
 import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment, handleEditComment } from '../actions/comments';
+import Divider from '@material-ui/core/Divider';
+
 
 class PostContainer extends Component {
     constructor(props) {
@@ -42,16 +44,16 @@ class PostContainer extends Component {
     upVoteComment = (comment) =>
         this.props.dispatch(handleUpVoteComment(comment))
 
-    addComment = (comment, post) => 
+    addComment = (comment, post) =>
         this.props.dispatch(handleAddComment(comment)) &&
-        this.props.dispatch(incrementComments(post)) 
+        this.props.dispatch(incrementComments(post))
 
     editComment = (comment) =>
         this.props.dispatch(handleEditComment(comment))
 
     deleteComment = (comment, post) =>
         this.props.dispatch(handleDeleteComment(comment)) &&
-        this.props.dispatch(decrementComments(post)) 
+        this.props.dispatch(decrementComments(post))
 
     deletePost = (post) =>
         this.props.dispatch(handleDeletePost(post))
@@ -65,20 +67,21 @@ class PostContainer extends Component {
             </div>
         }
 
-        return <div>
+        return <div className="postWrapper">
             <PostComponent
                 post={post}
                 downVote={this.downVotePost}
                 upVote={this.upVotePost}
                 deletePost={this.deletePost} />
 
-            <h3> Add Comment </h3>
+            <Divider light className="divider"/>
+
             <CommentFormComponent
                 post={post}
                 submitCallback={this.addComment} />
-            <hr />
 
-            <h3>Comments:</h3>
+            <h3> Comments </h3>
+
             {this.props.comments && Object.keys(this.props.comments).map(key =>
                 <CommentComponent
                     key={key}

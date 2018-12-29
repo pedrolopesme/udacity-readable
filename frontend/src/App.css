@@ -12,3 +12,98 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
+
+h1 {
+  color: #000;
+  font-family: 'Playfair Display', serif;
+  font-size: 3.2em;
+}
+
+h3 {
+  color: rgb(92, 92, 92);
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+}
+
+h4 {
+  color: rgb(92, 92, 92);
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4em;
+}
+
+.postBody {
+  font-family: 'Playfair Display', serif;
+  font-size: 1em;
+  line-height: 1.8em;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.postWrapper {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 900px;
+  
+}
+
+div.meta {
+  background-color: #ebe9e9;
+  padding: 10px 20px;
+  margin: 25px 0 0 0;
+}
+
+div.meta span {
+  font-weight: 600;
+}
+
+div.meta div {
+  display: inline-block;
+  font-size: .9em;
+}
+
+div.left {
+  float: left;
+}
+
+div.right {
+  float: right;
+}
+
+div.meta .icon {
+  font-size: 1em;
+  position: relative;
+  top: 2px;
+}
+
+div.meta .a {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+div.meta .thumbs {
+  margin: 0 0 0 8px;
+}
+
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.divider {
+  margin: 25px 0 !important;
+}
+
+.commentForm {
+  background-color: #ebe9e9;
+  padding: 10px 150px;
+  margin: 25px 0 0 0;
+}
+
+.commentForm h4 {
+  margin-top: 70px;
+}
+
+
+
