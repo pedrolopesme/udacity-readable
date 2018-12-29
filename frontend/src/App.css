@@ -13,6 +13,13 @@
   color: white;
 }
 
+.AppName {
+  font-family: 'Abril Fatface', cursive;
+  color: #000;
+  text-decoration: none;
+  font-size: 1em;
+}
+
 h1 {
   color: #000;
   font-family: 'Playfair Display', serif;
@@ -56,7 +63,7 @@ h4 {
 .post div.meta {
   background-color: #ebe9e9;
   padding: 10px 20px;
-  margin: 25px 0 0 0;
+  margin: 25px 0 25px 0;
 }
 
 .post div.meta span {

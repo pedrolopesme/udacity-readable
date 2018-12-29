@@ -9,7 +9,7 @@ import { Link } from 'react-router-dom'
 const styles = {
     root: {
         flexGrow: 1,
-        marginBottom: '24px',
+        marginBottom: '100px',
     },
 };
 
@@ -18,10 +18,10 @@ function SimpleAppBar(props) {
 
     return (
         <div className={classes.root}>
-            <AppBar position="static" color="default">
+            <AppBar position="static" color="default" style={{ position: "fixed", top: "0" }} >
                 <Toolbar>
                     <Typography variant="h6" color="inherit">
-                        <Link to={`/`}> My Awesome Blog </Link>
+                        <Link className="AppName" to={`/`}> My Awesome Blog </Link>
                     </Typography>
                 </Toolbar>
             </AppBar>
