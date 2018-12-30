@@ -97,17 +97,15 @@ class CategoryContainer extends Component {
                         </div>
 
                         <Grid container spacing={24}>
-                            {posts.length > 0 && (
-                                <Grid item xs={12}>
+                            {posts.length > 0 && this.getPosts(posts).map(post =>
+                                <Grid item xs={12} key={post.id}>
                                     <Paper className={styles.paper}>
-                                        {this.getPosts(posts).map(post =>
-                                            <PostPreviewComponent
-                                                key={post.id}
-                                                post={post}
-                                                downVote={this.downVotePost}
-                                                upVote={this.upVotePost}
-                                                deletePost={this.deletePost} />
-                                        )}
+                                        <PostPreviewComponent
+                                            post={post}
+                                            downVote={this.downVotePost}
+                                            upVote={this.upVotePost}
+                                            deletePost={this.deletePost} />
+
                                     </Paper>
                                 </Grid>
                             )}

@@ -84,10 +84,9 @@ class PostsContainer extends Component {
 
                         <Grid container spacing={24}>
                             {this.getPosts(this.props.posts).map(post =>
-                                <Grid item xs={12}>
+                                <Grid item xs={12} key={post.id}>
                                     <Paper className={styles.paper}>
                                         <PostPreviewComponent
-                                            key={post.id}
                                             post={post}
                                             downVote={this.downVotePost}
                                             upVote={this.upVotePost}
