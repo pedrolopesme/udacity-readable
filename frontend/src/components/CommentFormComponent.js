@@ -43,23 +43,24 @@ class CommentFormComponent extends Component {
             width: 200,
         };
 
-        return  <form onSubmit={this.handleSubmit} className="commentForm">
-                <div className="left">
-                    <h4> Share your thoughts ! </h4>
+        return <form onSubmit={this.handleSubmit} className="commentForm">
+            <div className="left">
+                <h4> Share your thoughts ! </h4>
+            </div>
+            <div className="right">
+                <div>
+                    <TextField styles={textField} name="author" label="Author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
                 </div>
-                <div className="right">
-                <p>
-                    <TextField className={textField} name="author" label="Author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
-                </p>
-                <p>
-                    <TextField className={textField} multiline label="Comment" id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
-                </p>
-                <p align="right">
-                    <Button variant="contained"  size="small" type="submit" >Send!</Button>
-                </p>
+                <div>
+                    <TextField styles={textField} multiline label="Comment" id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
                 </div>
-                <span className="clearfix"></span>
-            </form>
+                <div align="right">
+                    <br />
+                    <Button variant="contained" size="small" type="submit" >Send!</Button>
+                </div>
+            </div>
+            <span className="clearfix"></span>
+        </form>
     }
 }
 

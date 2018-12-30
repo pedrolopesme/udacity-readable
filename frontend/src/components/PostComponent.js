@@ -22,7 +22,7 @@ class PostComponent extends Component {
             {post && (
                 <div className="post">
                     <h1> {post.title} </h1>
-                    <div class="meta">
+                    <div className="meta">
                         <div className="left">
                             <div> author <span> {post.author} </span> -
                             <Link to={`/posts/${post.id}/edit`}> Edit </Link> |
