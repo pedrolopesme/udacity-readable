@@ -1,10 +1,8 @@
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
+import FavoriteBorder from '@material-ui/icons/FavoriteBorder';
+import ThumbDown from '@material-ui/icons/ThumbDown';
+import ThumbUp from '@material-ui/icons/ThumbUp';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import Divider from '@material-ui/core/Divider';
 
 class PostPreviewComponent extends Component {
     constructor(props) {
@@ -21,46 +19,33 @@ class PostPreviewComponent extends Component {
         const downVote = this.props.downVote;
         const upVote = this.props.upVote;
 
-        const styles = {
-            card: {
-                minWidth: 275,
-            },
-            title: {
-                fontSize: 14,
-            },
-            pos: {
-                marginBottom: 120,
-            },
-        };
-
-        return <div>
-            <Card className={styles.card}>
-                <CardContent>
-                    <Link to={`/post/${post.id}`}>
-                        <Typography variant="h5" component="h2">
-                            {post.title}
-                        </Typography>
-                    </Link>
-
-                    <div>
-                        <small> {post.author} </small> |
-                    <small> # Comments: {post.commentCount} </small> |
-                    <small> Score: {post.voteScore} </small>
-                        <p>
-                            <button onClick={() => upVote(post)}> Up Vote </button>
-                            <button onClick={() => downVote(post)}> Down Vote </button>
-                        </p>
-                        <p>
-
-                        </p>
+        return <div className="postPreview">
+            <div>
+                <Link to={`/post/${post.id}`}>
+                    <h4>{post.title} </h4>
+                </Link>
+                <div className="meta">
+                    <b> {post.author} </b> - {post.commentCount} comments
+                </div>
+                <div className="body">
+                    {post.body.substring(1, 255)}
+                    <Link to={`/post/${post.id}`}> <br /> see more ... </Link>
+                </div>
+                <div className="footer">
+                    <div className="left">
+                        <Link to={`/posts/${post.id}/edit`}> <button type="button"> Edit </button> </Link>
+                        <Link to={`/`} onClick={(e) => this.handleDeletePost(e, post)}>  <button type="button"> Delete  </button> </Link>
                     </div>
-                </CardContent>
-                <CardActions>
-                    <Link to={`/posts/${post.id}/edit`}> Edit </Link> |
-                    <Link to={`/`} onClick={(e) => this.handleDeletePost(e, post)}> Delete </Link>
-                </CardActions>
-            </Card>
-            <Divider className={styles.pos}/>
+                    <div className="right">
+                        <div className="score">
+                            <FavoriteBorder className="icon" /> <span> {post.voteScore} </span>
+                            <button className="a" onClick={() => upVote(post)} href=""> <ThumbUp className="icon thumbs" /> like it </button>
+                            <button className="a" onClick={() => downVote(post)} name="#"> <ThumbDown className="icon thumbs" /> hate it </button>
+                        </div>
+                    </div>
+                    <span className="clearfix"></span>
+                </div>
+            </div>
         </div>
     }
 }

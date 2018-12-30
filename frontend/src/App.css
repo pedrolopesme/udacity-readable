@@ -26,6 +26,12 @@ h1 {
   font-size: 3.2em;
 }
 
+h2 {
+  color: #000;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5em;
+}
+
 h3 {
   color: rgb(92, 92, 92);
   font-family: 'Playfair Display', serif;
@@ -164,4 +170,56 @@ div.right {
   color: red;
   position: relative;
   top: 2px;
+}
+
+.postPreview {
+  padding: 25px;
+}
+
+.postPreview a {
+  text-decoration: none;
+}
+
+.postPreview h4 {
+  color: #000;
+  margin: 0;
+}
+
+.postPreview .meta {
+  margin: 0 0 25px 0;
+  font-size: .8em;
+  color: #666;
+}
+
+.postPreview .body {
+  font-family: 'Playfair Display', serif;
+  font-size: 1em;
+  line-height: 1.8em;
+  text-align: left;
+  white-space: pre-line;
+}
+
+.postPreview .footer {
+  margin-top: 25px;
+}
+
+.postPreview .score {
+  font-size: .8em;
+}
+
+.postPreview .score .icon {
+  font-size: 1em;
+  position: relative;
+  top: 2px;
+}
+
+.postPreview .score button {
+  border: none; 
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.sorting {
+  font-size: .8em;
+  margin-top: 65px;
 }

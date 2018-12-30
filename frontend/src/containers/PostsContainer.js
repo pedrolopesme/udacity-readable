@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import Paper from '@material-ui/core/Paper';
 import AddIcon from '@material-ui/icons/Add';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -52,28 +53,53 @@ class PostsContainer extends Component {
             position: 'relative'
         };
 
+        const styles = theme => ({
+            root: {
+                flexGrow: 1,
+            },
+            paper: {
+                padding: theme.spacing.unit * 2,
+                textAlign: 'center',
+                color: theme.palette.text.secondary,
+            },
+        });
+
         return <div>
             <div style={divStyle}>
                 <Grid container spacing={24}>
                     <Grid item align="left" xs={9}>
-                        <SortingFilterComponent
-                            sort={this.state.sort}
-                            direction={this.state.direction}
-                            changeSorting={this.setSorting} />
+                        <div>
+                            <div className="left">
+                                <h2> Featured </h2>
+                            </div>
+                            <div className={"right sorting"}>
+                                <SortingFilterComponent
+                                    className="sorting"
+                                    sort={this.state.sort}
+                                    direction={this.state.direction}
+                                    changeSorting={this.setSorting} />
+                            </div>
+                            <span className="clearfix"></span>
+                        </div>
 
-                        <h2> POSTS </h2>
-                        {this.getPosts(this.props.posts).map(post =>
-                            <PostPreviewComponent
-                                key={post.id}
-                                post={post}
-                                downVote={this.downVotePost}
-                                upVote={this.upVotePost}
-                                deletePost={this.deletePost} />
-                        )}
+                        <Grid container spacing={24}>
+                            {this.getPosts(this.props.posts).map(post =>
+                                <Grid item xs={12}>
+                                    <Paper className={styles.paper}>
+                                        <PostPreviewComponent
+                                            key={post.id}
+                                            post={post}
+                                            downVote={this.downVotePost}
+                                            upVote={this.upVotePost}
+                                            deletePost={this.deletePost} />
+                                    </Paper>
+                                </Grid>
+                            )}
+                        </Grid>
                     </Grid>
 
                     <Grid item xs={3} align="left">
-                        <h2> CATEGORIES </h2>
+                        <h2> Categories </h2>
                         <List component="nav">
                             {flattenObjectArray(this.props.categories).map(category =>
                                 <Link to={`/${category.path}`} key={category.path}>
@@ -86,10 +112,10 @@ class PostsContainer extends Component {
                     </Grid>
                 </Grid>
             </div>
-            <Fab color="primary" aria-label="Add" align="right" className="fab" to={`/posts/new`} component={props => <Link {...props}/>}>
+            <Fab color="primary" aria-label="Add" align="right" className="fab" to={`/posts/new`} component={props => <Link {...props} />}>
                 <AddIcon />
             </Fab>
-        </div>
+        </div >
     }
 }
 
