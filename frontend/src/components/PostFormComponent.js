@@ -104,20 +104,19 @@ class PostFormComponent extends Component {
         return <div style={divStyle}>
             <form onSubmit={this.handleSubmit}>
                 <h2 align="left"> Post Form </h2>
-                <p>
-                    <TextField className={textField} fullWidth type="text" label="Title" name="title" id="title" value={this.state.title} onChange={this.handleChange.bind(this)} />
-                </p>
-                <p>
-                    <TextField className={textField} fullWidth label="Author" type="text" name="author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
-                </p>
-                <p>
-                    <TextField className={textField} multiline fullWidth label="Body" id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
-                </p>
-                <p>
+                <div>
+                    <TextField styles={textField} fullWidth type="text" label="Title" name="title" id="title" value={this.state.title} onChange={this.handleChange.bind(this)} />
+                </div>
+                <div>
+                    <TextField styles={textField} fullWidth label="Author" type="text" name="author" id="author" value={this.state.author} onChange={this.handleChange.bind(this)} />
+                </div>
+                <div>
+                    <TextField styles={textField} multiline fullWidth label="Body" id="body" name="body" onChange={this.handleChange.bind(this)} value={this.state.body} />
+                </div>
+                <div>
                     <FormControl fullWidth> 
                         <InputLabel htmlFor="category">Category</InputLabel>
                         <Select label="category" name="category" id="category" value={this.state.category} onChange={this.handleChange.bind(this)}>
-                            <option value="">  </option>
                             <MenuItem value="">
                                 <em>Select One</em>
                             </MenuItem>
@@ -126,10 +125,11 @@ class PostFormComponent extends Component {
                             )}
                         </Select>
                     </FormControl>
-                </p>
-                <p>
+                </div>
+                <div>
+                    <br />
                     <Button variant="contained" type="submit" color="primary">Send!</Button>
-                </p>
+                </div>
             </form>
         </div>
     }
