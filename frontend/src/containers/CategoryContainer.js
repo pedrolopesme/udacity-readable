@@ -11,6 +11,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import AddIcon from '@material-ui/icons/Add';
+import Paper from '@material-ui/core/Paper';
 
 class CategoryContainer extends Component {
     constructor(props) {
@@ -64,31 +65,53 @@ class CategoryContainer extends Component {
             position: 'relative'
         };
 
+        const styles = theme => ({
+            root: {
+                flexGrow: 1,
+            },
+            paper: {
+                padding: theme.spacing.unit * 2,
+                textAlign: 'center',
+                color: theme.palette.text.secondary,
+            },
+        });
+
         return <div>
             <div style={divStyle}>
                 <Grid container spacing={24}>
                     <Grid item align="left" xs={9}>
-                        {category && (
-                            <h2> Category: {category.name} </h2>
-                        )}
-
-                        {posts.length > 0 && (
-                            <div>
+                        <div>
+                            <div className="left">
+                                {category && (
+                                    <h2> Category: {category.name} </h2>
+                                )}
+                            </div>
+                            <div className={"right sorting"}>
                                 <SortingFilterComponent
+                                    className="sorting"
                                     sort={this.state.sort}
                                     direction={this.state.direction}
                                     changeSorting={this.setSorting} />
-
-                                {this.getPosts(posts).map(post =>
-                                    <PostPreviewComponent
-                                        key={post.id}
-                                        post={post}
-                                        downVote={this.downVotePost}
-                                        upVote={this.upVotePost}
-                                        deletePost={this.deletePost} />
-                                )}
                             </div>
-                        )}
+                            <span className="clearfix"></span>
+                        </div>
+
+                        <Grid container spacing={24}>
+                            {posts.length > 0 && (
+                                <Grid item xs={12}>
+                                    <Paper className={styles.paper}>
+                                        {this.getPosts(posts).map(post =>
+                                            <PostPreviewComponent
+                                                key={post.id}
+                                                post={post}
+                                                downVote={this.downVotePost}
+                                                upVote={this.upVotePost}
+                                                deletePost={this.deletePost} />
+                                        )}
+                                    </Paper>
+                                </Grid>
+                            )}
+                        </Grid>
 
                         {posts.length === 0 && (
                             <div> No posts yet :( </div>
@@ -96,7 +119,7 @@ class CategoryContainer extends Component {
                     </Grid>
 
                     <Grid item xs={3} align="left">
-                        <h2> CATEGORIES </h2>
+                        <h2> Categories </h2>
                         <List component="nav">
                             {flattenObjectArray(this.props.categories).map(category =>
                                 <Link to={`/${category.path}`} key={category.path}>
@@ -109,7 +132,7 @@ class CategoryContainer extends Component {
                     </Grid>
                 </Grid>
             </div>
-            <Fab color="primary" aria-label="Add" align="right" className="fab" to={`/posts/new`} component={props => <Link {...props}/>}>
+            <Fab color="primary" aria-label="Add" align="right" className="fab" to={`/posts/new`} component={props => <Link {...props} />}>
                 <AddIcon />
             </Fab>
         </div>
