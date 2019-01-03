@@ -8,7 +8,7 @@ import { handleDownVotePost, handleUpVotePost, handleDeletePost, incrementCommen
 import { handleAddComment, handleDownVoteComment, handleUpVoteComment, handleDeleteComment, handleEditComment } from '../actions/comments';
 import Divider from '@material-ui/core/Divider';
 import RecordVoiceOver from '@material-ui/icons/RecordVoiceOver'
-
+import NotFoundComponent from '../components/NotFoundComponent.js';
 
 class PostContainer extends Component {
     constructor(props) {
@@ -63,9 +63,7 @@ class PostContainer extends Component {
         const post = this.filterPost(this.props);
 
         if (!post) {
-            return <div>
-                Sorry, post doesn't exist.
-            </div>
+            return <NotFoundComponent />
         }
 
         return <div className="postWrapper">
