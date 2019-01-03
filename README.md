@@ -37,3 +37,10 @@ These are the main external packages added to the project:
 | **[React Redux](https://github.com/reduxjs/react-redux)** | **Official React bindings for Redux.** |
 | **[Redux Thunk](https://github.com/reduxjs/redux-thunk)** | **Thunk middleware for Redux.** |
 
+### Contributing
+
+ [CONTRIBUTING.md](CONTRIBUTING.md) 
+
+### License
+
+ [Apache License 2.0](LICENSE) 
